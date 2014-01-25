@@ -7,12 +7,15 @@ public class ShapeBehavior : MonoBehaviour {
 	private GameObject _target;
 	public ShapeType _shapeType = ShapeType.Circle;
 
+	private SkinnedMeshRenderer _meshRenderer;
 
 	public float maxDistance;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+		_meshRenderer = this.GetComponent<SkinnedMeshRenderer>();
+		_meshRenderer.SetBlendShapeWeight(2,100);
 	}
 	
 	// Update is called once per frame
