@@ -2,3 +2,6 @@ syntax: glob
 
 Temp/*
 Library/*
+*.sln
+*.csproj
+*.userprefs
