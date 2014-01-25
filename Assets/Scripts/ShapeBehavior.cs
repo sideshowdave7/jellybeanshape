@@ -24,8 +24,8 @@ public class ShapeBehavior : MonoBehaviour {
 		if (_target == null) { //Do nothing
 
 		} else if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
-			Vector3 dir =  _target.rigidbody.position - rigidbody.position;
-			rigidbody.AddForce (dir);
+			Vector3 dir =  _target.transform.position - transform.position;
+			rigidbody2D.AddForce (dir);
 		}
 
 	}
