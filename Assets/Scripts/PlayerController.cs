@@ -5,10 +5,13 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
 	public ShapeType _currentShape;
+	public int _followerCount = 0;
+	public List<GameObject> _followers;
 
 	// Use this for initialization
 	void Start () {
 		_currentShape = ShapeType.Triangle;
+		_followers = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
@@ -34,13 +37,30 @@ public class PlayerController : MonoBehaviour {
 
 		//Check for other shapes in your vicinity
 		GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
-
+		if(_followerCount == 0)
+		{
+			this.GetComponent<ShapeBehavior>().UpdateShape(_currentShape, this.gameObject, null);
+		}
 		foreach (GameObject g in shapes)
 		{
-			if (Vector2.Distance(g.transform.position, this.transform.position) <= Globals.Instance.INFLUENCE_RADIUS)
+			if (Vector2.Distance(g.transform.position, this.transform.position) <= Globals.Instance.INFLUENCE_RADIUS && g.GetComponent<ShapeBehavior>()._target != this.gameObject)
 			{
 				ShapeBehavior s = g.GetComponent<ShapeBehavior>();
-				s.UpdateShape(_currentShape, this.gameObject);
+				if (s.transform.parent != null)
+				{
+					if(s.transform.parent.GetComponent<ParentNode>().ChildCount() <= _followerCount + 1)
+					{
+						s.transform.parent.GetComponent<ParentNode>().UpdateChildren(_currentShape, this.gameObject);
+					}
+					else
+					{
+						this.GetComponent<ShapeBehavior>().UpdateShape(s._shapeType, this.gameObject, s.transform.parent.GetComponent<ParentNode>());
+						for (int i = 0; i < _followerCount; i++)
+						{
+							_followers[i].GetComponent<ShapeBehavior>().UpdateShape(s._shapeType, this.gameObject,null);
+						}
+					}
+				}
 			}
 		}
 
