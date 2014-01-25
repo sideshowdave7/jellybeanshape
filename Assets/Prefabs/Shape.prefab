@@ -38,7 +38,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: .0500000007
   m_GravityScale: 1
   m_FixedAngle: 1
@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbd46ba2c558b343abfa29794fb0e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 0}
   _shapeType: 0
   maxDistance: 0
 --- !u!137 &13700000
@@ -111,7 +112,7 @@ SkinnedMeshRenderer:
   m_Mesh: {fileID: 4300000, guid: fd05a7ca461b640f2a41300794499c18, type: 3}
   m_Bones: []
   m_BlendShapeWeights:
-  - -19.2000008
+  - 0
   - 0
   - 0
   - 0
