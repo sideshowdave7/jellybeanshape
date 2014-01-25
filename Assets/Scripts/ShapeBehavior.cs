@@ -10,6 +10,7 @@ public class ShapeBehavior : MonoBehaviour {
 	private SkinnedMeshRenderer _meshRenderer;
 
 	public float maxDistance;
+	public bool locked = false;
 
 	// Use this for initialization
 	void Start () 
