@@ -6,7 +6,8 @@ public class SlotBehavior : MonoBehaviour {
 
 	public ShapeType shapeType;
 
-
+	public bool locked = false;
+	private bool _prevLocked = false;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,7 @@ public class SlotBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 	
+
 		foreach (var shape in GameObject.FindGameObjectsWithTag("Shape")) {
 			var comp = (ShapeBehavior)shape.gameObject.GetComponent<ShapeBehavior>();
 
@@ -25,8 +27,10 @@ public class SlotBehavior : MonoBehaviour {
 				if(dist < .05f) {
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.locked = true;
+					locked = true;
 					comp.transform.position = transform.position;
 					comp.collider2D.enabled = false;
+
 				} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.locked) {
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.rigidbody2D.isKinematic = true;
@@ -35,6 +39,11 @@ public class SlotBehavior : MonoBehaviour {
 					comp.transform.position = new Vector3(pos.x, pos.y, 0f);
 				}
 
+				if (locked && !_prevLocked){
+					AudioManager.Instance.playClip("boss1");
+				}
+
+				_prevLocked = locked;
 
 			}
 		}

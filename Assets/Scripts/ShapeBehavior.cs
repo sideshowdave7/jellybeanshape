@@ -15,6 +15,7 @@ public class ShapeBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+
 		_meshRenderer = this.GetComponent<SkinnedMeshRenderer>();
 		_meshRenderer.SetBlendShapeWeight(2,100);
 	}
