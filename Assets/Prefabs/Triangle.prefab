@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
   - 114: {fileID: 11400000}
+  - 61: {fileID: 6100000}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Shape
@@ -56,6 +57,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
+--- !u!61 &6100000
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Material: {fileID: 6200000, guid: c6682fd5750fbb14f84f2972e4c47a5f, type: 2}
+  m_IsTrigger: 0
+  m_Size: {x: .800000012, y: .800000012}
+  m_Center: {x: 0, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,8 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbd46ba2c558b343abfa29794fb0e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeType: 0
-  maxDistance: 0
+  _shapeType: 2
+  maxDistance: 2
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

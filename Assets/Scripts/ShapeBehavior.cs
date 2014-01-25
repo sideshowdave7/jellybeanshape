@@ -21,17 +21,9 @@ public class ShapeBehavior : MonoBehaviour {
 		if (_target == null) { //Do nothing
 
 		} else if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
-				Vector3 dir = Vector3.MoveTowards(rigidbody.position,_target.rigidbody.position,maxDistance);
-				rigidbody.AddForce (dir);
+			Vector3 dir =  _target.rigidbody.position - rigidbody.position;
+			rigidbody.AddForce (dir);
 		}
 
 	}
-}
-
-public enum ShapeType {
-
-	Circle,
-	Square,
-	Triangle
-
 }
