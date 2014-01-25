@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		_currentShape = ShapeType.Triangle;
 		_followers = new List<GameObject>();
+		AudioManager.Instance.playLoop("MainDrumLoop");
 	}
 	
 	// Update is called once per frame
@@ -20,19 +21,44 @@ public class PlayerController : MonoBehaviour {
 		if(Input.GetButton("Horizontal"))
 		{
 			this.rigidbody2D.AddForce(new Vector2(Input.GetAxis("Horizontal") * Globals.Instance.PLAYER_SPEED,0));
+
 		}
 
 		if(Input.GetButton("Vertical"))
 		{
 			this.rigidbody2D.AddForce(new Vector2(0, Input.GetAxis("Vertical") * Globals.Instance.PLAYER_SPEED));
-		}
 
+		}
+		if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+		{
+			Vector2 mosPos = Input.mousePosition;
+			Vector3 worldPos = Camera.main.ScreenToWorldPoint((Vector3)mosPos);
+			Vector3 norm = (worldPos - this.transform.position).normalized;
+			this.rigidbody2D.AddForce(norm * Globals.Instance.PLAYER_SPEED);
+			if(worldPos.x > this.transform.position.x)
+			{
+				AudioManager.Instance.playClip("boss3");
+			}
+			if(worldPos.x < this.transform.position.x)
+			{
+				AudioManager.Instance.playClip("boss1");
+			}
+			if(worldPos.y < this.transform.position.y)
+			{
+				AudioManager.Instance.playClip("boss1");
+			}
+			if(worldPos.y > this.transform.position.y)
+			{
+				AudioManager.Instance.playClip("boss4");
+			}
+		}
 		if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
 		{
 			Vector2 mosPos = Input.mousePosition;
 			Vector3 worldPos = Camera.main.ScreenToWorldPoint((Vector3)mosPos);
 			Vector3 norm = (worldPos - this.transform.position).normalized;
 			this.rigidbody2D.AddForce(norm * Globals.Instance.PLAYER_SPEED);
+
 		}
 
 		//Check for other shapes in your vicinity
