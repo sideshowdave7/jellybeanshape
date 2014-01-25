@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
 		{
 			Vector2 mosPos = Input.mousePosition;
-			Debug.Log("Mouse pos: " + mosPos.ToString());
+			Vector3 worldPos = Camera.main.ScreenToWorldPoint((Vector3)mosPos);
+			Vector3 norm = (worldPos - this.transform.position).normalized;
+			this.rigidbody2D.AddForce(norm * Globals.Instance.PLAYER_SPEED);
 		}
 	
 	}
