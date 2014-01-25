@@ -18,20 +18,22 @@ public class SlotBehavior : MonoBehaviour {
 	
 		foreach (var shape in GameObject.FindGameObjectsWithTag("Shape")) {
 			var comp = (ShapeBehavior)shape.gameObject.GetComponent<ShapeBehavior>();
-			var dist = Vector2.Distance(comp.transform.position,transform.position);
 
-			if(dist < .05f) {
-				comp.rigidbody2D.velocity = Vector2.zero;
-				comp.locked = true;
-				comp.transform.position = transform.position;
-				comp.collider2D.enabled = false;
-			} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.locked) {
-				Vector2 dir = comp.transform.position - transform.position;
-				comp.rigidbody2D.AddForce(-dir/(Globals.Instance.SLOT_TO_SHAPE_DISTANCE - dist));
+				if (comp != null) {
+				var dist = Vector2.Distance(comp.transform.position,transform.position);
+
+				if(dist < .05f) {
+					comp.rigidbody2D.velocity = Vector2.zero;
+					comp.locked = true;
+					comp.transform.position = transform.position;
+					comp.collider2D.enabled = false;
+				} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.locked) {
+					Vector2 dir = comp.transform.position - transform.position;
+					comp.rigidbody2D.AddForce(-dir/(Globals.Instance.SLOT_TO_SHAPE_DISTANCE - dist));
+				}
+
+
 			}
-
-
 		}
-
 	}
 }
