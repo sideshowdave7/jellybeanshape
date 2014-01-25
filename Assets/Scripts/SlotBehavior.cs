@@ -23,6 +23,7 @@ public class SlotBehavior : MonoBehaviour {
 			if(dist < .05f) {
 				comp.rigidbody2D.velocity = Vector2.zero;
 				comp.locked = true;
+				comp.collider2D.enabled = false;
 			} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.locked) {
 				Vector2 dir = comp.transform.position - transform.position;
 				comp.rigidbody2D.AddForce(-dir/(Globals.Instance.SLOT_TO_SHAPE_DISTANCE - dist));
