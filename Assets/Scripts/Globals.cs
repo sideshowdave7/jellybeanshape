@@ -29,7 +29,7 @@ public class Globals
 
 	#region PLAYER_VARS
 
-	public float PLAYER_SPEED = 100f;
+	public float PLAYER_SPEED = 200f;
 	public float SLOT_TO_SHAPE_DISTANCE = 12f;
 
 	#endregion
