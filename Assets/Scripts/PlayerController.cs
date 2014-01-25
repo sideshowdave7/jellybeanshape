@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
+	public ShapeType _currentShape;
+
 	// Use this for initialization
 	void Start () {
-	
+		_currentShape = ShapeType.Triangle;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +31,21 @@ public class PlayerController : MonoBehaviour {
 			Vector3 norm = (worldPos - this.transform.position).normalized;
 			this.rigidbody2D.AddForce(norm * Globals.Instance.PLAYER_SPEED);
 		}
+
+		//Check for other shapes in your vicinity
+		GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
+
+		foreach (GameObject g in shapes)
+		{
+			if (Vector2.Distance(g.transform.position, this.transform.position) <= Globals.Instance.INFLUENCE_RADIUS)
+			{
+				ShapeBehavior s = g.GetComponent<ShapeBehavior>();
+				s.UpdateShape(_currentShape, this.gameObject);
+			}
+		}
+
 	
 	}
+
+
 }

@@ -31,6 +31,7 @@ public class Globals
 
 	public float PLAYER_SPEED = 100f;
 	public float SLOT_TO_SHAPE_DISTANCE = 2f;
+	public float INFLUENCE_RADIUS = 25f;
 
 	#endregion
 
@@ -42,6 +43,7 @@ public enum ShapeType {
 	Circle,
 	Square,
 	Triangle,
-	Hexagon
+	Hexagon,
+	Star
 	
 }
