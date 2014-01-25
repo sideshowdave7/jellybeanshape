@@ -6,7 +6,7 @@ public class ShapeBehavior : MonoBehaviour {
 
 	public GameObject _target;
 	public ShapeType _shapeType;
-	
+	public bool locked;
 
 	private SkinnedMeshRenderer _meshRenderer;
 

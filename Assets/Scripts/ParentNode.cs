@@ -35,6 +35,7 @@ public class ParentNode : MonoBehaviour {
 			this.transform.GetChild(i).GetComponent<ShapeBehavior>()._target = t;
 			t.GetComponent<PlayerController>()._followerCount ++;
 			t.GetComponent<PlayerController>()._followers.Add(this.transform.GetChild(i).gameObject);
+			this.transform.GetChild(i).transform.parent = null;
 		}
 		this.GetComponent<CircleCollider2D>().isTrigger = true;
 	}
