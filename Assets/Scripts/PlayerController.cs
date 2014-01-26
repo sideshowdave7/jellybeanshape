@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_currentShape = ShapeType.Triangle;
+
 		_followers = new List<GameObject>();
 	}
 	
