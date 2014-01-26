@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 92bfafdfcb6aa47abad8a8295ce18d2f
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - glowParticles: {fileID: 100000, guid: b78e2942ffc6a408698d96adccf377a1, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
