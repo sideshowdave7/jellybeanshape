@@ -68,7 +68,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nodeType: 0
   _initialChildCount: 0
-  _shape: {fileID: 0}
+  _shape: {fileID: 100000, guid: 8841f0f64df3e4ca5b7f67182e5201e1, type: 2}
+  _beingConverted: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
