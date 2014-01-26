@@ -99,7 +99,8 @@ public class ShapeBehavior : MonoBehaviour {
 				else if(p!= null)
 				{
 					p.SetTargetForChildren(GameObject.FindGameObjectWithTag("Player"));
-				else if(this.gameObject.tag != "Player" && _target == _originalParentNode)
+					this._shapeType = goalShape;
+				} else if(this.gameObject.tag != "Player" && _target == _originalParentNode)
 				{
 					this.transform.parent = _originalParentNode.transform;
 					_originalParentNode.GetComponent<CircleCollider2D>().isTrigger = false;
