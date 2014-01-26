@@ -12,7 +12,7 @@ public class Globals
 	{
 
 	}
-	
+
 	private static Globals _instance = new Globals ();
 
 	/// <summary>Singleton instance for the active Globals.</summary>

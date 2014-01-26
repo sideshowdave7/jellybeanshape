@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour {
 	
 	void Awake ()
 	{
+
 		if (_instance != null && _instance != this) {
 			Destroy (this.gameObject);
 			return;
@@ -22,10 +23,12 @@ public class AudioManager : MonoBehaviour {
 			_instance = this;
 		}
 		DontDestroyOnLoad (this.gameObject);
+
 	}
 
 	// Use this for initialization
 	void Start () {
+
 	
 	}
 	
@@ -33,7 +36,25 @@ public class AudioManager : MonoBehaviour {
 	void Update () {
 	
 	}
-
+	public void playLoop(string clip_name) {
+		
+		AudioClip clip = null;
+		
+		foreach (var c in Clips){
+			if (c.name == clip_name){
+				clip = c;
+			}
+		}
+		if (clip != null) {
+			
+			var mc = GameObject.FindGameObjectWithTag ("MainCamera");
+			var source = mc.AddComponent<AudioSource>();
+			source.loop = true;
+			source.clip = clip;
+			source.volume = Globals.Instance.SFX_VOLUME;
+			source.Play();
+		}
+	}
 	public void playClip(string clip_name) {
 
 		AudioClip clip = null;
