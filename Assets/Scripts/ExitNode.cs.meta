@@ -4,6 +4,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - transitionSlide: {fileID: 100000, guid: b1752e6183eaa4e19a3008c31ade7690, type: 2}
+  - levelText: {fileID: 100000, guid: a1be3e0a02a14492fb241d5636da3c69, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
