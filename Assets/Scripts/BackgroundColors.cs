@@ -17,7 +17,7 @@ public class BackgroundColors : MonoBehaviour
 		for ( int i = 0; i < Quantity ; i ++ )
 		{
 			circles[i] = (GameObject)Instantiate(Circle);
-			circles[i].transform.position = new Vector3 (Random.Range (-60f,60f),Random.Range (-30f,30f),10);
+			circles[i].transform.position = new Vector3 (Random.Range (-60f,60f),Random.Range (-30f,30f),20);
 			
 			//Set Scales
 			float Scale = Random.Range(0.5f, 6f);
@@ -29,7 +29,7 @@ public class BackgroundColors : MonoBehaviour
 			circles[i].renderer.material.SetColor ("_TintColor", color);
 			
 			//set move vectors
-			circleVectors[i] = new Vector2 (Random.Range(-0.003f,0.003f), Random.Range(-0.003f,0.003f));
+			circleVectors[i] = new Vector2 (Random.Range(-0.03f,0.03f), Random.Range(-0.03f,0.03f));
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class BackgroundColors : MonoBehaviour
 			circles[i].transform.Translate(circleVectors[i]);
 			if ( Mathf.Abs (circles[i].transform.position.x ) > 60 || Mathf.Abs (circles[i].transform.position.y ) > 30 )
 			{
-				circles[i].transform.position = new Vector3 ( circles[i].transform.position.x * -1, circles[i].transform.position.y * -1, 0);
+				circles[i].transform.position = new Vector3 ( circles[i].transform.position.x * -1, circles[i].transform.position.y * -1, 30);
 			}
 			
 			circleVectors[i].x += Random.Range(-0.0001f, 0.0001f );
