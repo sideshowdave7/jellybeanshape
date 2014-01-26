@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ParentNode : MonoBehaviour {
 
 	public ShapeType _nodeType;
 	public int _initialChildCount;
 	public GameObject _shape;
+	public bool _beingConverted;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +15,7 @@ public class ParentNode : MonoBehaviour {
 		{
 			GameObject go = (GameObject)Instantiate(_shape);
 			go.GetComponent<ShapeBehavior>()._shapeType = _nodeType;
+			go.GetComponent<ShapeBehavior>()._originalParentNode = this.gameObject;
 			go.GetComponent<ShapeBehavior>().Setup(_nodeType);
 			go.transform.parent = this.transform;
 			go.GetComponent<ShapeBehavior>()._target = this.gameObject;
@@ -24,8 +27,15 @@ public class ParentNode : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void FixedUpdate () 
+	{
+		if(!_beingConverted)
+		{
+			for (int i = 0; i < ChildCount(); i++)
+			{
+				this.transform.GetChild(i).GetComponent<ShapeBehavior>().UpdateShape(_nodeType, null);
+			}
+		}
 	}
 
 	public void SetTargetForChildren(GameObject t)
@@ -48,11 +58,21 @@ public class ParentNode : MonoBehaviour {
 		return this.transform.childCount;
 	}
 
+	public List<GameObject> GetChildren()
+	{
+		List<GameObject> children = new List<GameObject>();
+		foreach (Transform t in this.transform)
+		{
+			children.Add(t.gameObject);
+		}
+		return children;
+	}
+
 	public void UpdateChildren(ShapeType s, GameObject target)
 	{
 		for (int i = 0; i < ChildCount(); i++)
 		{
-			this.transform.GetChild(i).GetComponent<ShapeBehavior>().UpdateShape(s, target, this);
+			this.transform.GetChild(i).GetComponent<ShapeBehavior>().UpdateShape(s, this);
 		}
 	}
 }
