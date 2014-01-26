@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public bool _beingConverted = false;
 
 	public float _timeIdle = 0f;
+	private bool hasLockedShapes = false;
 
 	// Use this for initialization
 	void Start () {
@@ -65,8 +66,18 @@ public class PlayerController : MonoBehaviour {
 		 	
 		}
 
-		if(this.gameObject.rigidbody2D.velocity.magnitude <= 0.5f && _followerCount > 0)
+		var sgo = GameObject.FindGameObjectsWithTag("Shape");
+
+		foreach (var g in sgo){
+			var sh = g.GetComponent<ShapeBehavior>();
+			if (sh != null && g.GetComponent<ShapeBehavior>().locked)
+				hasLockedShapes = true;
+
+		}
+
+		if(this.gameObject.rigidbody2D.velocity.magnitude <= 0.5f && (_followerCount > 0 || hasLockedShapes))
 		{
+			hasLockedShapes = false;
 			_timeIdle += Time.deltaTime;
 			if (_timeIdle > 1.25f)
 			{
@@ -77,6 +88,26 @@ public class PlayerController : MonoBehaviour {
 					ShapeBehavior sh = go.GetComponent<ShapeBehavior>();
 					sh._target = sh._originalParentNode;
 					sh.transform.parent = sh._originalParentNode.transform;
+				}
+
+				foreach (var go in GameObject.FindGameObjectsWithTag("Shape")){
+
+					ShapeBehavior sh = go.GetComponent<ShapeBehavior>();
+
+					if (sh.locked){
+						sh.locked = false;
+						sh._target = sh._originalParentNode;
+						sh.transform.parent = sh._originalParentNode.transform;
+						sh.rigidbody2D.isKinematic = false;
+						sh._shapeType = sh._originalParentNode.GetComponent<ParentNode>()._nodeType;
+						sh.tracking = false;
+						sh.collider2D.enabled = true;
+					}
+				}
+
+				foreach (var ago in GameObject.FindGameObjectsWithTag("Slot")){
+					ago.GetComponent<SlotBehavior>().locked = false;
+					ago.GetComponent<SlotBehavior>().hasShape = false;
 				}
 
 				_currentShape = _originalShape;
