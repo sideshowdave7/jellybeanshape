@@ -8,7 +8,7 @@ public class ShapeBehavior : MonoBehaviour {
 	public ShapeType _shapeType;
 	public bool locked;
 	public GameObject _originalParentNode;
-        public bool tracking = false;
+    public bool tracking = false;
 
 	private SkinnedMeshRenderer _meshRenderer;
 
@@ -38,9 +38,10 @@ public class ShapeBehavior : MonoBehaviour {
 	
 		if (_target == null) { //Do nothing
 
-		} else if (_target.tag == "Player") {// if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
-			Vector3 dir =  _target.transform.position - this.gameObject.transform.position;
-			rigidbody2D.AddForce (dir);
+		} else if (_target.tag != "Slot") {// if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
+			Vector2 dir =  _target.transform.position - this.gameObject.transform.position;
+			if (_target.tag == "Player" && Vector2.Distance(_target.transform.position,this.gameObject.transform.position) > 10f || _target.tag != "Player")
+				rigidbody2D.AddForce (dir);
 		}
 
 
@@ -100,7 +101,8 @@ public class ShapeBehavior : MonoBehaviour {
 				{
 					p.SetTargetForChildren(GameObject.FindGameObjectWithTag("Player"));
 					this._shapeType = goalShape;
-				} else if(this.gameObject.tag != "Player" && _target == _originalParentNode)
+				} 
+				else if(this.gameObject.tag != "Player" && _target == _originalParentNode)
 				{
 					this.transform.parent = _originalParentNode.transform;
 					_originalParentNode.GetComponent<CircleCollider2D>().isTrigger = false;

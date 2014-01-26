@@ -7,7 +7,7 @@ public class ColorBehavior : MonoBehaviour {
 	private Material shapeMaterials;
 
 	private bool _lerpMaterial = false;
-	private float _lerpTimer = 0;
+	private float _lerpTimer = 0f;
 
 	private Color _colorFrom;
 	private Color _colorTo;
@@ -51,16 +51,16 @@ public class ColorBehavior : MonoBehaviour {
 
 	void Lerp_Color ()
 	{
-		_lerpTimer += Time.deltaTime;
+		_lerpTimer += Time.fixedDeltaTime;
 		 
-		this.renderer.material.color = Color.Lerp(_colorFrom,_colorTo,_lerpTimer);
-		glowParticles.particleSystem.startColor = Color.Lerp(_glowFrom,_glowTo,_lerpTimer);
+		this.renderer.material.color = Color.Lerp(_colorFrom,_colorTo,_lerpTimer/40f);
+		glowParticles.particleSystem.startColor = Color.Lerp(_glowFrom,_glowTo,_lerpTimer/40f);
 
-		if (_lerpTimer > 1)
+		if (_lerpTimer > 40f)
 		{
 			glowParticles.particleSystem.Play();
 			_lerpMaterial = false;
-			_lerpTimer = 0;
+			_lerpTimer = 0f;
 		}
 	}
 }

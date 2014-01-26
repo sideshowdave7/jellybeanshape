@@ -27,12 +27,17 @@ public class SlotBehavior : MonoBehaviour {
 				if (comp != null) {
 				var dist = Vector2.Distance(comp.transform.position,transform.position);
 
-				if(dist < .05f) {
+				if(dist < .05f && !comp.locked) {
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.locked = true;
 					locked = true;
 					comp.transform.position = transform.position;
 					comp.collider2D.enabled = false;
+
+					if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._followers.Remove(comp.gameObject))
+					{
+						GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._followerCount--;
+					}
 
 				} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.tracking && !hasShape) {
 					comp._target = this.gameObject;

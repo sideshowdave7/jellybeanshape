@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
 	public ShapeType _currentShape;
+	public ShapeType _originalShape;
 	public int _followerCount = 0;
 	public List<GameObject> _followers;
 	public bool _beingConverted = false;
@@ -13,7 +14,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		_currentShape = _originalShape;
 		_followers = new List<GameObject>();
 		AudioManager.Instance.playLoop("MainDrumLoop");
 	}
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour {
 		if(this.gameObject.rigidbody2D.velocity.magnitude <= 0.5f && _followerCount > 0)
 		{
 			_timeIdle += Time.deltaTime;
-			if (_timeIdle > 2.25f)
+			if (_timeIdle > 1.25f)
 			{
 				_timeIdle = 0f;
 				this.GetComponent<ShapeBehavior>().UpdateShape(_currentShape, null);
@@ -77,6 +78,8 @@ public class PlayerController : MonoBehaviour {
 					sh._target = sh._originalParentNode;
 					sh.transform.parent = sh._originalParentNode.transform;
 				}
+
+				_currentShape = _originalShape;
 			}
 
 		}

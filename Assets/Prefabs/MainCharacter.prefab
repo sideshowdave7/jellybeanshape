@@ -14,6 +14,7 @@ GameObject:
   - 50: {fileID: 5000000}
   - 58: {fileID: 5800000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Player
@@ -28,8 +29,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: .707106888, y: 0, z: 0, w: .707106769}
-  m_LocalPosition: {x: -2.92710114, y: -.347374469, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -28.8332367, y: -2.41890502, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!50 &5000000
@@ -56,7 +57,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: c6682fd5750fbb14f84f2972e4c47a5f, type: 2}
   m_IsTrigger: 0
-  m_Radius: 2
+  m_Radius: 1.39999998
   m_Center: {x: 0, y: 0}
 --- !u!95 &9500000
 Animator:
@@ -83,9 +84,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206550dc066693c428644e3e4acb20e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentShape: 1
+  _currentShape: 0
   _followerCount: 0
   _followers: []
+  _beingConverted: 0
+  _timeIdle: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,7 +103,21 @@ MonoBehaviour:
   _target: {fileID: 0}
   _shapeType: 0
   locked: 0
+  _originalParentNode: {fileID: 0}
+  tracking: 0
   maxDistance: 0
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92bfafdfcb6aa47abad8a8295ce18d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowParticles: {fileID: 100000, guid: b78e2942ffc6a408698d96adccf377a1, type: 2}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
