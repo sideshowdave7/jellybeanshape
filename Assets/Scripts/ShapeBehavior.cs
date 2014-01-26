@@ -23,6 +23,9 @@ public class ShapeBehavior : MonoBehaviour {
 		{
 			_meshRenderer.SetBlendShapeWeight(ShapeToInt(_shapeType),100);
 		}
+
+		this.gameObject.GetComponent<ColorBehavior>().Set_Color(_shapeType);
+
 	}
 
 	public void Setup(ShapeType s)
@@ -43,6 +46,7 @@ public class ShapeBehavior : MonoBehaviour {
 
 	public void UpdateShape(ShapeType goalShape, GameObject go, ParentNode p)
 	{
+		this.gameObject.GetComponent<ColorBehavior>().Set_Color(goalShape);
 		//Transform to goal shape
 		bool changed = false;
 
@@ -88,11 +92,13 @@ public class ShapeBehavior : MonoBehaviour {
 					p.SetTargetForChildren(this.gameObject);
 					this.gameObject.GetComponent<PlayerController>()._currentShape = goalShape;
 
+
 				}
 				else if(p!= null)
 				{
 					p.SetTargetForChildren(GameObject.FindGameObjectWithTag("Player"));
 					_shapeType = goalShape;
+					this.gameObject.GetComponent<ColorBehavior>().Set_Color(goalShape);
 				}
 			}
 			
