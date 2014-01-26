@@ -7,6 +7,8 @@ public class ShapeBehavior : MonoBehaviour {
 	public GameObject _target;
 	public ShapeType _shapeType;
 	public bool locked;
+	public bool tracking = false;
+
 
 	private SkinnedMeshRenderer _meshRenderer;
 
@@ -33,7 +35,7 @@ public class ShapeBehavior : MonoBehaviour {
 	
 		if (_target == null) { //Do nothing
 
-		} else{// if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
+		} else if (_target.tag == "Player") {// if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
 			Vector3 dir =  _target.transform.position - this.gameObject.transform.position;
 			rigidbody2D.AddForce (dir);
 		}
@@ -90,7 +92,7 @@ public class ShapeBehavior : MonoBehaviour {
 				else if(p!= null)
 				{
 					p.SetTargetForChildren(GameObject.FindGameObjectWithTag("Player"));
-
+					_shapeType = goalShape;
 				}
 			}
 			
