@@ -33,6 +33,7 @@ public class SlotBehavior : MonoBehaviour {
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.locked = true;
 					locked = true;
+
 					comp.transform.position = transform.position;
 					comp.collider2D.enabled = false;
 
@@ -56,7 +57,7 @@ public class SlotBehavior : MonoBehaviour {
 				}
 
 				if (locked && !_prevLocked){
-					AudioManager.Instance.playClip("boss1");
+					AudioManager.Instance.playLoop("bossBG");
 				}
 
 				_prevLocked = locked;
