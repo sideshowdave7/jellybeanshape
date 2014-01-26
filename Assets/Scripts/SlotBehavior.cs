@@ -8,7 +8,7 @@ public class SlotBehavior : MonoBehaviour {
 
 	public bool locked = false;
 	private bool _prevLocked = false;
-	private bool hasShape = false;
+	public bool hasShape = false;
 
 
 	// Use this for initialization
@@ -27,7 +27,7 @@ public class SlotBehavior : MonoBehaviour {
 				if (comp != null) {
 				var dist = Vector2.Distance(comp.transform.position,transform.position);
 
-				if(dist < .05f && !comp.locked) {
+				if(dist < .05f && !comp.locked && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._followers.Contains((comp.gameObject))) {
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.locked = true;
 					locked = true;
