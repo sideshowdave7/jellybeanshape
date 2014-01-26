@@ -6,10 +6,16 @@ public class ExitNode : MonoBehaviour {
 	private SlotBehavior[] levelSlots;
 
 	public GameObject transitionSlide;
+	public GameObject levelGUIText;
+	public string levelText;
+	public int textSize;
 
+	private bool _introTransition = true;
 	private bool _endTransition = false;
 	private bool _levelComplete = false;
 	private bool _displayText = false;
+	private float _levelEndCounter = 0;
+	private Color _transitionSlideColor = new Color (0.507f, 0.679f, 0.781f, 1f);
 
 	void Start () 
 	{
@@ -24,12 +30,16 @@ public class ExitNode : MonoBehaviour {
 		}
 
 		transitionSlide = (GameObject)Instantiate(transitionSlide);
-		transitionSlide.transform.position = new Vector3 (0,-50f,-5f);
+		transitionSlide.transform.position = new Vector3 (0,0,-5f);
+
+		levelGUIText = (GameObject)Instantiate(levelGUIText);
+		levelGUIText.guiText.fontSize = textSize;
+		levelGUIText.guiText.text = "";
 
 
+		
 	}
 	
-	// Update is called once per frame
 	void Update () 
 	{
 		if (_levelComplete == false)
@@ -51,23 +61,38 @@ public class ExitNode : MonoBehaviour {
 			{
 				End_Transition();
 			}
-
-
 		}
 
 		if (_displayText)
 		{
 			Display_Text();
 		}
+
+		if (_introTransition)
+		{
+			Intro_Transition ();
+		}
+	}
+
+	void Intro_Transition ()
+	{
+		if (transitionSlide.renderer.material.color.a > 0)
+		{
+			_transitionSlideColor.a -= 0.02f;
+			transitionSlide.renderer.material.color = _transitionSlideColor;
+		}
+		else
+		{
+			_introTransition = false;
+		}
 	}
 
 	void End_Transition()
 	{
-
-
-		if (transitionSlide.transform.position.y < 0)
+		if (transitionSlide.renderer.material.color.a < 1)
 		{
-			transitionSlide.transform.Translate(0,0.75f,0);
+			_transitionSlideColor.a += 0.02f;
+			transitionSlide.renderer.material.color = _transitionSlideColor;
 		}
 		else
 		{
@@ -80,11 +105,33 @@ public class ExitNode : MonoBehaviour {
 	void Display_Text ()
 	{
 
+		_levelEndCounter += Time.deltaTime;
+
+		if ( Mathf.Floor( _levelEndCounter ) == 1 )
+		{
+			if (_levelEndCounter - 1 < 1) levelGUIText.guiText.color = new Color(1,1,1,_levelEndCounter - 1);
+			levelGUIText.guiText.text = levelText;
+		}
+
+		if ( _levelEndCounter > 10 )
+		{
+			if ( (_levelEndCounter - 10) < 1 )
+			{
+				levelGUIText.guiText.color = new Color(1,1,1,(_levelEndCounter - 11)*-1);
+			}
+
+			if (_levelEndCounter > 12)
+			{
+				int level = Application.loadedLevel;
+				Application.LoadLevel(level + 1);
+			}
+
+		}
 	}
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
-		if (col.gameObject.name == "MainCharacter")
+		if (col.gameObject.name == "MainCharacter" && _levelComplete )
 		{
 			_endTransition = true;
 		}
