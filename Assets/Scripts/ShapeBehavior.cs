@@ -44,6 +44,15 @@ public class ShapeBehavior : MonoBehaviour {
 				rigidbody2D.AddForce (dir);
 		}
 
+		if (collider2D.enabled == false && Vector2.Distance(transform.position,_originalParentNode.transform.position) < Globals.Instance.INFLUENCE_RADIUS) {
+
+			collider2D.enabled = true;
+
+		}
+
+		//if (this.gameObject.GetComponent<ColorBehavior>().shapeType != _shapeType){
+	//		this.gameObject.GetComponent<ColorBehavior>().Set_Color(_shapeType);
+	//	}
 
 	}
 

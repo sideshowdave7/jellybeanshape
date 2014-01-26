@@ -33,6 +33,7 @@ public class Globals
 	public float SLOT_TO_SHAPE_DISTANCE = 12f;
 	public float SFX_VOLUME = 1f;
 	public float INFLUENCE_RADIUS = 15f;
+	public bool LEVEL_COMPLETE = false;
 
 	#endregion
 
