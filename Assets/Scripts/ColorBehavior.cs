@@ -9,21 +9,16 @@ public class ColorBehavior : MonoBehaviour {
 	private bool _lerpMaterial = false;
 	private float _lerpTimer = 0f;
 
+	private float _lerpTime = 1f;
+
 	private Color _colorFrom;
 	private Color _colorTo;
-	private Color _glowFrom;
-	private Color _glowTo;
 
 	private Color STAR = new Color (1f,0.22f,0.27f);
-	private Color STAR_GLOW = new Color (1, 0.57f, 0.43f);
 	private Color PENTAGON = new Color (1f,0.04f,0.54f);
-	private Color PENTAGON_GLOW = new Color (1, 0.7f, 0.85f);
 	private Color SQUARE = new Color (0.81f,0.04f,1f);
-	private Color SQUARE_GLOW = new Color (0.9f, 0.5f, 1f);
 	private Color TRIANGLE = new Color (0.35f,0.04f,1f);
-	private Color TRIANGLE_GLOW = new Color (0.04f, 0.58f, 1f);
 	private Color CIRCLE = new Color (0,0.73f,0.54f);
-	private Color CIRCLE_GLOW = new Color (0, 1f, 0.81f);
 
 	void Start () 
 	{
@@ -32,33 +27,35 @@ public class ColorBehavior : MonoBehaviour {
 		glowParticles.transform.parent = this.transform;
 	}
 
-	void FixedUpdate ()
+	void Update ()
 	{
 		if ( _lerpMaterial ) { Lerp_Color(); }
 	}
 
-	public void Set_Color (ShapeType shape) 
+	public void Set_Color (ShapeType shape)  
 	{
-		if (shape == ShapeType.Circle ) 	{ _colorFrom = renderer.material.color; _colorTo = CIRCLE; _glowFrom = glowParticles.particleSystem.startColor; _glowTo = CIRCLE_GLOW; }
-		if (shape == ShapeType.Square ) 	{ _colorFrom = renderer.material.color; _colorTo = SQUARE; _glowFrom = glowParticles.particleSystem.startColor; _glowTo = SQUARE_GLOW; }
-		if (shape == ShapeType.Triangle ) 	{ _colorFrom = renderer.material.color; _colorTo = TRIANGLE; _glowFrom = glowParticles.particleSystem.startColor; _glowTo = TRIANGLE_GLOW; }
-		if (shape == ShapeType.Hexagon ) 	{ _colorFrom = renderer.material.color; _colorTo = PENTAGON; _glowFrom = glowParticles.particleSystem.startColor; _glowTo = PENTAGON_GLOW; }
+		if (shape == ShapeType.Circle ) 	{ _colorFrom = renderer.material.color; _colorTo = CIRCLE;  }
+		if (shape == ShapeType.Square ) 	{ _colorFrom = renderer.material.color; _colorTo = SQUARE; }
+		if (shape == ShapeType.Triangle ) 	{ _colorFrom = renderer.material.color; _colorTo = TRIANGLE;  }
+		if (shape == ShapeType.Hexagon ) 	{ _colorFrom = renderer.material.color; _colorTo = PENTAGON;  }
 
+		_lerpTimer = 0f;
 		_lerpMaterial = true;
 
-		glowParticles.particleSystem.Stop();
 	}
 
 	void Lerp_Color ()
 	{
-		_lerpTimer += Time.fixedDeltaTime;
+		_lerpTimer += Time.deltaTime / _lerpTime;
 		 
-		this.renderer.material.color = Color.Lerp(_colorFrom,_colorTo,_lerpTimer/40f);
-		glowParticles.particleSystem.startColor = Color.Lerp(_glowFrom,_glowTo,_lerpTimer/40f);
+		this.renderer.material.color = Color.Lerp(_colorFrom,_colorTo,_lerpTimer);
+		glowParticles.particleSystem.startColor = Color.Lerp(_colorFrom,_colorTo,_lerpTimer);
+	
 
-		if (_lerpTimer > 40f)
+		if (_lerpTimer >= 1f)
 		{
-			glowParticles.particleSystem.Play();
+			if (!glowParticles.particleSystem.isPlaying && this.gameObject.GetComponent<ShapeBehavior>()._target.tag == "Player")
+				glowParticles.particleSystem.Play();
 			_lerpMaterial = false;
 			_lerpTimer = 0f;
 		}
