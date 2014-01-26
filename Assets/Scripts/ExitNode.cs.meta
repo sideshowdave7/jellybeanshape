@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 203fef168703d4358b090347330ada96
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - transitionSlide: {fileID: 100000, guid: b1752e6183eaa4e19a3008c31ade7690, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
