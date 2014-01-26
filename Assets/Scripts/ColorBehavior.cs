@@ -37,7 +37,7 @@ public class ColorBehavior : MonoBehaviour {
 		if ( _lerpMaterial ) { Lerp_Color(); }
 	}
 
-	void Set_Color (ShapeType shape) 
+	public void Set_Color (ShapeType shape) 
 	{
 		if (shape == ShapeType.Circle ) 	{ _colorFrom = renderer.material.color; _colorTo = CIRCLE; _glowFrom = glowParticles.particleSystem.startColor; _glowTo = CIRCLE_GLOW; }
 		if (shape == ShapeType.Square ) 	{ _colorFrom = renderer.material.color; _colorTo = SQUARE; _glowFrom = glowParticles.particleSystem.startColor; _glowTo = SQUARE_GLOW; }
