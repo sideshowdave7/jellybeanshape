@@ -60,7 +60,7 @@ public class ShapeBehavior : MonoBehaviour {
 				float currentGoalWeight = _meshRenderer.GetBlendShapeWeight(ShapeToInt(goalShape));
 				if(currentGoalWeight < 100)
 				{
-					float newval = currentGoalWeight + 5f / (p!=null?((float)p.ChildCount()):1f);
+					float newval = currentGoalWeight + 2f / (p!=null?((float)p.ChildCount()):1f);
 					_meshRenderer.SetBlendShapeWeight(ShapeToInt(goalShape), newval);
 				}
 				else
@@ -81,7 +81,7 @@ public class ShapeBehavior : MonoBehaviour {
 					float currentWeight = _meshRenderer.GetBlendShapeWeight(i);
 					if(currentWeight > 0)
 					{
-						float newval = currentWeight - 5f / (p!=null?((float)p.ChildCount()):1f);
+						float newval = currentWeight - 2f / (p!=null?((float)p.ChildCount()):1f);
 						_meshRenderer.SetBlendShapeWeight(i, newval);
 					}
 
