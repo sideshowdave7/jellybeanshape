@@ -22,12 +22,14 @@ public class SlotBehavior : MonoBehaviour {
 
 		foreach (var shape in GameObject.FindGameObjectsWithTag("Shape")) {
 
+
 				var comp = (ShapeBehavior)shape.gameObject.GetComponent<ShapeBehavior>();
 
 				if (comp != null) {
 				var dist = Vector2.Distance(comp.transform.position,transform.position);
 
 				if(dist < .05f && !comp.locked) {
+				
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.locked = true;
 					locked = true;
@@ -43,6 +45,7 @@ public class SlotBehavior : MonoBehaviour {
 					comp._target = this.gameObject;
 					comp.tracking = true;
 					hasShape = true;
+					AudioManager.Instance.playClip("MorphTest2");
 				}
 
 				if (comp.tracking && comp._target == this.gameObject) {

@@ -9,6 +9,7 @@ public class ParentNode : MonoBehaviour {
 	public GameObject _shape;
 	public bool _beingConverted;
 
+
 	// Use this for initialization
 	void Start () {
 		for (int i = 0; i < _initialChildCount; i++)
@@ -29,11 +30,14 @@ public class ParentNode : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
+
 		if(!_beingConverted)
 		{
+
 			for (int i = 0; i < ChildCount(); i++)
 			{
 				this.transform.GetChild(i).GetComponent<ShapeBehavior>().UpdateShape(_nodeType, null);
+
 			}
 		}
 	}

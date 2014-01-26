@@ -19,6 +19,12 @@ public class CollideWall : MonoBehaviour {
 			AudioManager.Instance.playClip("triangle1");
 
 		}
+		if(Box.collider.gameObject.tag == "Shape")
+		{
+			AudioManager.Instance.playClip("triangle2");
+			
+		}
+
 
 	}
 }
