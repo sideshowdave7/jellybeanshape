@@ -8,6 +8,7 @@ public class ShapeBehavior : MonoBehaviour {
 	public ShapeType _shapeType;
 	public bool locked;
 	public GameObject _originalParentNode;
+        public bool tracking = false;
 
 	private SkinnedMeshRenderer _meshRenderer;
 
@@ -22,6 +23,9 @@ public class ShapeBehavior : MonoBehaviour {
 		{
 			_meshRenderer.SetBlendShapeWeight(ShapeToInt(_shapeType),100);
 		}
+
+		this.gameObject.GetComponent<ColorBehavior>().Set_Color(_shapeType);
+
 	}
 
 	public void Setup(ShapeType s)
@@ -34,7 +38,7 @@ public class ShapeBehavior : MonoBehaviour {
 	
 		if (_target == null) { //Do nothing
 
-		} else{// if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
+		} else if (_target.tag == "Player") {// if(_shapeType == ShapeType.Circle) { //move to target //_target.shapeType
 			Vector3 dir =  _target.transform.position - this.gameObject.transform.position;
 			rigidbody2D.AddForce (dir);
 		}
@@ -44,6 +48,7 @@ public class ShapeBehavior : MonoBehaviour {
 
 	public void UpdateShape(ShapeType goalShape, ParentNode p)
 	{
+		this.gameObject.GetComponent<ColorBehavior>().Set_Color(goalShape);
 		//Transform to goal shape
 		bool changed = false;
 
@@ -89,12 +94,11 @@ public class ShapeBehavior : MonoBehaviour {
 					p.SetTargetForChildren(this.gameObject);
 					this.gameObject.GetComponent<PlayerController>()._currentShape = goalShape;
 					this._shapeType = goalShape;
+
 				}
 				else if(p!= null)
 				{
 					p.SetTargetForChildren(GameObject.FindGameObjectWithTag("Player"));
-					this._shapeType = goalShape;
-				}
 				else if(this.gameObject.tag != "Player" && _target == _originalParentNode)
 				{
 					this.transform.parent = _originalParentNode.transform;

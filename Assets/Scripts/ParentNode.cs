@@ -42,10 +42,13 @@ public class ParentNode : MonoBehaviour {
 	{
 		for (int i = 0; i < ChildCount(); i++)
 		{
-			this.transform.GetChild(i).GetComponent<ShapeBehavior>()._target = t;
-			t.GetComponent<PlayerController>()._followerCount ++;
-			t.GetComponent<PlayerController>()._followers.Add(this.transform.GetChild(i).gameObject);
-			this.transform.GetChild(i).transform.parent = null;
+			if (this.transform.GetChild(i).GetComponent<ShapeBehavior>()._target.tag != "Slot"){
+
+				this.transform.GetChild(i).GetComponent<ShapeBehavior>()._target = t;
+				t.GetComponent<PlayerController>()._followerCount ++;
+				t.GetComponent<PlayerController>()._followers.Add(this.transform.GetChild(i).gameObject);
+				this.transform.GetChild(i).transform.parent = null;
+			}
 		}
 		this.GetComponent<CircleCollider2D>().isTrigger = true;
 	}
