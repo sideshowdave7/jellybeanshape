@@ -17,13 +17,13 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		_currentShape = _originalShape;
 		_followers = new List<GameObject>();
-		AudioManager.Instance.playLoop("MainDrumLoop");
+		AudioManager.Instance.playLoop("triangleBG");
 	}
 	void OnCollisionEnter2D(Collision2D Box){
 		if(Box.collider.gameObject.tag == "Shape")
 		{
-			AudioManager.Instance.playClip("triangle3");
-			
+			//AudioManager.Instance.playClip("boss4");
+
 		}
 	}
 
@@ -83,11 +83,11 @@ public class PlayerController : MonoBehaviour {
 
 		}
 
-		if(this.gameObject.rigidbody2D.velocity.magnitude <= 0.5f && (_followerCount > 0 || hasLockedShapes))
+		if(this.gameObject.rigidbody2D.velocity.magnitude <= 0.5f && (_followerCount > 0 || hasLockedShapes) && !Globals.Instance.LEVEL_COMPLETE)
 		{
 			hasLockedShapes = false;
 			_timeIdle += Time.deltaTime;
-			if (_timeIdle > 1.25f)
+			if (_timeIdle > 1.75f)
 			{
 				_timeIdle = 0f;
 				this.GetComponent<ShapeBehavior>().UpdateShape(_currentShape, null);
@@ -96,6 +96,9 @@ public class PlayerController : MonoBehaviour {
 					ShapeBehavior sh = go.GetComponent<ShapeBehavior>();
 					sh._target = sh._originalParentNode;
 					sh.transform.parent = sh._originalParentNode.transform;
+
+					sh.collider2D.enabled = false;
+
 				}
 
 				foreach (var go in GameObject.FindGameObjectsWithTag("Shape")){

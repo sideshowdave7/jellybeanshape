@@ -28,7 +28,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200002}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TEHLIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .0646161288, y: 2.30464053, z: 5}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 0, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
 --- !u!61 &6100000
@@ -80,6 +80,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionSlide: {fileID: 100000, guid: b1752e6183eaa4e19a3008c31ade7690, type: 2}
+  levelGUIText: {fileID: 100000, guid: a1be3e0a02a14492fb241d5636da3c69, type: 2}
+  levelText: TEST
+  textSize: 30
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

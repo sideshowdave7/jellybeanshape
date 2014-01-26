@@ -14,6 +14,8 @@ public class ColorBehavior : MonoBehaviour {
 	private Color _colorFrom;
 	private Color _colorTo;
 
+	public ShapeType shapeType;
+
 	private Color STAR = new Color (1f,0.22f,0.27f);
 	private Color PENTAGON = new Color (1f,0.04f,0.54f);
 	private Color SQUARE = new Color (0.81f,0.04f,1f);
@@ -34,10 +36,12 @@ public class ColorBehavior : MonoBehaviour {
 
 	public void Set_Color (ShapeType shape)  
 	{
+		shapeType = shape;
 		if (shape == ShapeType.Circle ) 	{ _colorFrom = renderer.material.color; _colorTo = CIRCLE;  }
 		if (shape == ShapeType.Square ) 	{ _colorFrom = renderer.material.color; _colorTo = SQUARE; }
 		if (shape == ShapeType.Triangle ) 	{ _colorFrom = renderer.material.color; _colorTo = TRIANGLE;  }
 		if (shape == ShapeType.Hexagon ) 	{ _colorFrom = renderer.material.color; _colorTo = PENTAGON;  }
+		if (shape == ShapeType.Star )       { _colorFrom = renderer.material.color; _colorTo = STAR; }
 
 		_lerpTimer = 0f;
 		_lerpMaterial = true;

@@ -45,14 +45,21 @@ public class ExitNode : MonoBehaviour {
 		if (_levelComplete == false)
 		{
 			bool checkLocks = true;
-			
+
 			//check if the exit condidtion has been satisfied
 			for (int i = 0; i < levelSlots.Length ; i ++ )
 			{
 				if (levelSlots[i].locked == false) {checkLocks = false;}
 			}
 			
-			if ( checkLocks ){ _levelComplete = true; }
+			if ( checkLocks )
+			{ 
+				_levelComplete = true; 
+				StartCoroutine(TweenDoorLightForGreatJustice());
+				Globals.Instance.LEVEL_COMPLETE = true;
+				AudioManager.Instance.playLoop("MainDrumLoop");
+
+			}
 		}
 
 		else
@@ -72,6 +79,34 @@ public class ExitNode : MonoBehaviour {
 		{
 			Intro_Transition ();
 		}
+	}
+
+	/// <summary>
+	/// Drinks A hoagie.
+	/// </summary>
+	void DrinkAHoagie()
+	{
+		Debug.Log("FOR GREAT HOAGIE");
+	}
+
+
+	/// <summary>
+	/// Tweens the door light for great justice.
+	/// </summary>
+	/// <returns>The door light for great justice.</returns>
+	IEnumerator TweenDoorLightForGreatJustice()
+	{
+		float duration = 1f;
+		float elapsed = 0f;
+		float x;
+		while (elapsed < duration){
+
+			elapsed += Time.deltaTime;
+			x = elapsed*1.5f;
+			this.transform.FindChild("TEHLIGHT").localScale = new Vector2(x, 1.5f);
+			yield return null;
+		}
+		yield return null;
 	}
 
 	void Intro_Transition ()
@@ -123,6 +158,7 @@ public class ExitNode : MonoBehaviour {
 			if (_levelEndCounter > 12)
 			{
 				int level = Application.loadedLevel;
+				Globals.Instance.LEVEL_COMPLETE = false;
 				Application.LoadLevel(level + 1);
 			}
 
