@@ -8,6 +8,8 @@ public class SlotBehavior : MonoBehaviour {
 
 	public bool locked = false;
 	private bool _prevLocked = false;
+	private bool hasShape = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -19,22 +21,33 @@ public class SlotBehavior : MonoBehaviour {
 	
 
 		foreach (var shape in GameObject.FindGameObjectsWithTag("Shape")) {
-			var comp = (ShapeBehavior)shape.gameObject.GetComponent<ShapeBehavior>();
+
+				var comp = (ShapeBehavior)shape.gameObject.GetComponent<ShapeBehavior>();
 
 				if (comp != null) {
 				var dist = Vector2.Distance(comp.transform.position,transform.position);
 
-				if(dist < .05f) {
+				if(dist < .05f && !comp.locked) {
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.locked = true;
 					locked = true;
 					comp.transform.position = transform.position;
 					comp.collider2D.enabled = false;
 
-				} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.locked) {
+					if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._followers.Remove(comp.gameObject))
+					{
+						GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._followerCount--;
+					}
+
+				} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.tracking && !hasShape) {
+					comp._target = this.gameObject;
+					comp.tracking = true;
+					hasShape = true;
+				}
+
+				if (comp.tracking && comp._target == this.gameObject) {
 					comp.rigidbody2D.velocity = Vector2.zero;
 					comp.rigidbody2D.isKinematic = true;
-
 					Vector2 pos = Vector2.MoveTowards(comp.transform.position,transform.position,dist/10f);
 					comp.transform.position = new Vector3(pos.x, pos.y, 0f);
 				}
