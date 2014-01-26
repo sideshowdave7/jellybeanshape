@@ -19,6 +19,14 @@ public class PlayerController : MonoBehaviour {
 		_followers = new List<GameObject>();
 		AudioManager.Instance.playLoop("MainDrumLoop");
 	}
+	void OnCollisionEnter2D(Collision2D Box){
+		if(Box.collider.gameObject.tag == "Shape")
+		{
+			AudioManager.Instance.playClip("triangle3");
+			
+		}
+	}
+
 	
 	// Update is called once per frame
 	void FixedUpdate () 
@@ -129,7 +137,9 @@ public class PlayerController : MonoBehaviour {
 			{
 				foreach (GameObject shape in g.GetComponent<ParentNode>().GetChildren())
 				{
-					if(shape.GetComponent<ShapeBehavior>()._target != this.gameObject)
+
+					if(shape.GetComponent<ShapeBehavior>()._target != this.gameObject && 
+					   Vector2.Distance(shape.transform.position,shape.GetComponent<ShapeBehavior>()._originalParentNode.gameObject.transform.position) < Globals.Instance.INFLUENCE_RADIUS)
 					{
 						g.GetComponent<ParentNode>()._beingConverted=true;
 						ShapeBehavior s = shape.GetComponent<ShapeBehavior>();
