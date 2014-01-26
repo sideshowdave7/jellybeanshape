@@ -42,7 +42,8 @@ public class SlotBehavior : MonoBehaviour {
 						GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._followerCount--;
 					}
 
-				} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE && !comp.tracking && !hasShape) {
+				} else if (comp._shapeType == shapeType && dist < Globals.Instance.SLOT_TO_SHAPE_DISTANCE 
+				           && !comp.tracking && !hasShape && GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._followers.Contains((comp.gameObject))) {
 					comp._target = this.gameObject;
 					comp.tracking = true;
 					hasShape = true;
